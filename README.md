@@ -154,7 +154,7 @@ Ok we're all set up to start training AI models!
 
 ## How to train our very own Chess AI
 
-First choose a model! We have a directory `models` with a couple of options to choose from - a  `transformer` model and a `conv` (convolutional) model. By all means take a look at the model architecture, but the basics are very much in the names. One thing to note is that the model classes are both called `Model` which will be a requirement for our competitors. When you have decided which model you want to train, copy the corresponding python and yaml files from the `models` subdirectory into the main `demo-chess` repo directory and rename it `model.py` and `model_config.yaml` with the following.
+First choose a model! We have a directory `models` with a couple of options to choose from - a  `transformer` model and a `convolutional` model. By all means take a look at the model architecture, but the basics are very much in the names. One thing to note is that the model classes are both called `Model` which will be a requirement for our competitors. When you have decided which model you want to train, copy the corresponding python and yaml files from the `models` subdirectory into the main `demo-chess` repo directory and rename it `model.py` and `model_config.yaml` with the following.
 
 ```bash
 cp ~/chess-hackathon/models/<your_model.py> ~/chess-hackathon/model.py
