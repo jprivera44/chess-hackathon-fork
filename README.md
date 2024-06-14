@@ -124,16 +124,16 @@ Host CHESSBOT
 
 Great we're now inside our running container in VSCode!
 
-## STEP 5
+## STEP 4
 
-Next you'll need to clone this repo.
+Next you'll need to clone this repo. Drop the commands below into the terminal in VSCode.
 
 ```bash
 cd ~
 git clone https://github.com/StrongResearch/chess-hackathon.git
 ```
 
-## STEP 6
+## STEP 5
 
 Jolly good. Moving on, create and source a new virtual environment, let's call it `~/.chess`. 
 
