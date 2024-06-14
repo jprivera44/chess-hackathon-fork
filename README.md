@@ -107,24 +107,7 @@ You can launch your model to train with `isc train run.isc`!
 ### Testing gameplay
 While your model is training let's take a look at what the gameplay API looks like. Open up the notebook called `gameplay.ipynb`. You may be prompted to install jupyter things. Please do so. You may also need to click on the "Select Kernel" button at the top-right, find and select the `.chess` kernel (from the virtual environment we created).
 
-
-...
-
-
-## What it feels like to watch our AIs play chess
-
-Next let's actually jump ahead and see what we're shooting for. Open up the jupyter notebook `gameplay.ipynb`, and step through cell-by-cell. You can run the cells with `shift + enter`.
-
-You'll see we're initializing a pair of agents, each with `chg.Agent()`. When called without any `model` argument, these agents will just make random moves. When we add a model later, the moves will reflect the judgement of that model!
-
-
-
-
-As you can see we can play repeated games to a maximum depth of 50 moves per agent, and after each game we can print out the points won by each agent in that game. A **win** is awarded 1 point, a **loss** is awarded -1 points, and **draw** is awarded 0 points.
-
-Next you can inspect the results of the last game played. Find the line `move = 0`. When you run this cell, you will be shown details of the board state at that move (move 0 is the starting board state). Printed off you will see the move that was made in PGN notation, the board presented to the agent in numpy array format, and an SVG rendering of the board in that position. By changing `move = 0` to `move = 1, 2, etc.` you can step through the successive moves made by the agents in the game.
-
-In the last cell of the notebook we can play successive `tournaments`. Each tournament is at least two games wherein each agent gets a turn at playing `white` and `black` for sake of fairness. If there is an overall winner from the first two games of the tournament, the tournament is over and the points awarded to each agent are displayed. If the overall outcome of the first two games is a draw, another two games are played, and so on until a winning agent can be declared.
+Step through this notebook and see what we're working with!
 
 
 
