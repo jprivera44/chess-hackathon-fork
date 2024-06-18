@@ -30,7 +30,7 @@ def get_args_parser(add_help=True):
     parser.add_argument("--model-config", type=Path, required=True)
     parser.add_argument("--save-dir", type=Path, required=True)
     parser.add_argument("--load-dir", type=Path, default=None)
-    parser.add_argument("--lr", type=float, default=None)
+    parser.add_argument("--lr", type=float, required=True, default=None)
     return parser
 
 def logish_transform(data):
