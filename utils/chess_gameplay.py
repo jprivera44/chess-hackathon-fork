@@ -3,7 +3,7 @@ import torch.nn as nn
 import numpy as np
 from random import choices
 from itertools import accumulate
-from chess_primitives import init_board, conjugate_board, candidate_moves, in_check, is_draw, get_played, which_board, evaluate_position
+from utils.chess_primitives import init_board, conjugate_board, candidate_moves, in_check, is_draw, get_played, which_board, evaluate_position
 from chess import Board
 import chess.svg
 import cairosvg
@@ -115,6 +115,8 @@ def play_game(table, agents, max_moves=float('inf'), min_seconds_per_move=2, ver
             outcome = 'Draw or timeout'
 
             if poseval:
+                if verbose:
+                    print(f"{outcome} after {len(game_result[color_toplay]['moves'])} moves. Stockfish evaluating...")
                 if color_toplay == 'white':
                     white_score = evaluate_position(chs_board.fen(), depth_limit=25)
                     if white_score > 0:
@@ -135,8 +137,6 @@ def play_game(table, agents, max_moves=float('inf'), min_seconds_per_move=2, ver
             player, opponent = ('white', 'black') if color_toplay == 'white' else ('black','white')
             game_result[player]['points'] = player_points
             game_result[opponent]['points'] = opponent_points
-            if verbose:
-                print(f"{outcome} after {len(game_result[color_toplay]['moves'])} moves.")
             return game_result
 
         move_not_selected = True

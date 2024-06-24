@@ -916,14 +916,13 @@ def play_historic(board, chs_board, moves, turn, announce_outcome=False):
         else:
             turn = 'white'
 
-def evaluate_position(fen, time_limit=0.1, depth_limit=25, STOCKFISH_PATH="/root/chess-hackathon/stockfish/stockfish"):
+def evaluate_position(fen, time_limit=10, depth_limit=25, STOCKFISH_PATH="/root/chess-hackathon/stockfish/stockfish"):
     # Create a chess board from the FEN string
     board = Board(fen)
     # Initialize the Stockfish engine
     with SimpleEngine.popen_uci(STOCKFISH_PATH) as engine:
-        # Perform the evaluation
-        # info = engine.analyse(board, Limit(time=time_limit))
-        info = engine.analyse(board, Limit(depth=depth_limit))
+        # Perform the evaluation to max depth or time limit.
+        info = engine.analyse(board, Limit(depth=depth_limit, time=time_limit))
         # Extract the score
         score = info['score'].relative.score(mate_score=10_000)
     return score
