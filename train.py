@@ -11,7 +11,7 @@ from pathlib import Path
 import argparse
 import os
 from model import Model
-from dataset import HDFDataset
+from utils.dataset import HDFDataset
 from torch.utils.data import DataLoader
 import socket
 import yaml
@@ -21,7 +21,7 @@ from cycling_utils import (
     MetricsTracker,
     atomic_torch_save,
 )
-from LAMB import Lamb
+from utils.LAMB import Lamb
 
 timer.report("Completed imports")
 
