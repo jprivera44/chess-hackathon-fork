@@ -73,7 +73,12 @@ class Agent:
             return choices(range(len(options)))[0]
         with torch.no_grad():
             # Score the options with the model
-            scores = self.model(torch.tensor(options))
+            # scores = self.model(torch.tensor(options))
+
+            # Split the options into individual boards for scoring.
+            individual_boards = [torch.tensor(board) for board in options]
+            scores = [self.model(board) for board in individual_boards]
+            
         # Select end token
         selection = selector(scores, self.p, self.k)
         return selection
