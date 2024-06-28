@@ -633,7 +633,6 @@ def in_check(board):
     enemy_moves = pawn_moves(enemy_board) + rook_moves(enemy_board) + knight_moves(enemy_board) + bishop_moves(enemy_board) + queen_moves(enemy_board) + king_moves(enemy_board)
     enemy_moves = [conjugate_board(em) for em in enemy_moves] # Conjugate back to our perspective
     # Not the case that where my king is currently located, the piece in that location is no longer my king, for possible enemy moves.
-    # return all([((em==9)|(em==10)).sum() == 1 for em in enemy_moves]) # i.e. my king always survives my enemy's next move.
     return any([em[tuple(king_loc)] not in piece_map['K'] for em in enemy_moves]) # i.e. none of my enemy's moves can replace my king.
 
 def is_draw(board):
@@ -858,12 +857,11 @@ def play_historic(board, chs_board, moves, turn, announce_outcome=False):
         candidates = candidate_moves(board)
         # Generate candidates and identify the board of the move that was made
         played_board = get_played(board, move, turn, candidates, announce_outcome)
-        # print(played_board)
         # Maybe terminate
         if played_board is None:
             return states
 
-         # Idenfity the index of the played board among the list of candidates
+        # Idenfity the index of the played board among the list of candidates
         played_index = which_board(played_board, candidates)
 
         # Get fen for each candidate?
@@ -880,13 +878,12 @@ def play_historic(board, chs_board, moves, turn, announce_outcome=False):
             # So stockfish will eval the fen for this board from the perspective of our opponent!
             # So to get a score for our position, we invert the sign of our opponents positional score here.
             fens[cand_ind] = chs_board_fwd.fen()
-        # assert not any([fen is None for fen in fens]), f"Error: fen missing? {fens}\n\n{candidates}"
 
         # Somehow we found a move the chess engine discounted? Maybe duplicate? Ignore.
         candidates = [c for c,f in zip(candidates, fens) if f is not None]
         fens = [f for f in fens if f is not None]
 
-        # Fast!
+        # Accelerate with multiprocessing
         with multiprocessing.Pool(os.cpu_count()) as pool:
             stock_evals = list(pool.map(evaluate_position, fens))
 
