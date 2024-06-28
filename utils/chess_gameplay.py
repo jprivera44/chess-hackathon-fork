@@ -151,11 +151,10 @@ def play_game(table, agents, max_moves=float('inf'), min_seconds_per_move=2, ver
             for cand_move in chs_board.legal_moves:
                 # PGN token corresponding to this legal move
                 cand_pgn = chs_board.san(cand_move)
-                # Pre-process the 
+                # Pre-process
                 cand_pgn = cand_pgn.replace('x','').replace('+','').replace('#','')
                 target_board = get_played(board, cand_pgn, color_toplay, options)
                 cand_ind = which_board(target_board, options)
-                # chs_board_fwd = chs_board.copy()
                 chs_board_fwd = copy.deepcopy(chs_board)
 
                 move = chs_board_fwd.parse_san(cand_pgn)
@@ -167,15 +166,6 @@ def play_game(table, agents, max_moves=float('inf'), min_seconds_per_move=2, ver
             chs_board, pgn_token, uci_token = chs_board_pgns[move_selection]
             move = chess.Move.from_uci(uci_token)
             chs_boardsvg = chess.svg.board(chs_board, size=600, orientation=chess.WHITE, lastmove=move, borders=False, coordinates=False)
-
-            # if poseval:
-            #     # When evaluating the position at this point, we have just made our move on chs_board
-            #     # so color_toplay is the opponent.
-            #     copy_for_eval = copy.deepcopy(chs_board)
-            #     if color_toplay == 'white':
-            #         white_score = - evaluate_position(copy_for_eval.fen(), depth_limit=25)
-            #     else:
-            #         white_score = evaluate_position(copy_for_eval.fen(), depth_limit=25)
 
             move_not_selected = False
 
