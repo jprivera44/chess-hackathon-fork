@@ -96,30 +96,6 @@ class MultiHeadDotProductAttention(nn.Module):
         return self.output_linear(output)
 
 
-def embed_sequences(
-    sequences: torch.Tensor,
-    config: TransformerConfig,
-) -> torch.Tensor:
-    """Returns embeddings for sequences of tokens."""
-    embeddings_layer = nn.Embedding(
-        num_embeddings=config.vocab_size,
-        embedding_dim=config.embedding_dim,
-    )
-    nn.init.trunc_normal_(embeddings_layer.weight, std=config.emb_init_scale)
-    
-    embeddings = embeddings_layer(sequences)
-    embeddings *= np.sqrt(config.embedding_dim)
-
-    _, sequence_length = sequences.shape
-    assert sequence_length <= config.max_sequence_length
-    positions = torch.arange(sequence_length, device=sequences.device)
-    pos_encodings = nn.Embedding(
-        num_embeddings=config.max_sequence_length,
-        embedding_dim=config.embedding_dim,
-    )(positions)
-    return embeddings + pos_encodings
-
-
 def shift_right(sequences: torch.Tensor) -> torch.Tensor:
     """Right-shift the input by padding on the temporal axis."""
     bos_array = torch.zeros((sequences.shape[0], 1), dtype=torch.long, device=sequences.device)
@@ -187,8 +163,9 @@ class TransformerDecoder(nn.Module):
         return embeddings + pos_encodings
 
     def forward(self, targets: torch.Tensor) -> torch.Tensor:
+        targets = torch.flatten(targets, start_dim=0, end_dim=1)
         inputs = shift_right(targets)
-        embeddings = embed_sequences(inputs, self.config)
+        embeddings = self.embed_sequences(inputs)
 
         h = embeddings
         for layer in self.layers:
@@ -203,5 +180,5 @@ class TransformerDecoder(nn.Module):
 
         h = self.final_ln(h)
         logits = self.output_linear(h)
-        return F.log_softmax(logits, dim=-1)
+        return F.log_softmax(logits, dim=-1)[:64, -1]
     

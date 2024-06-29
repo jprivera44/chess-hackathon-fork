@@ -12,7 +12,7 @@
     # The parameter initialization scale for the embeddings.
     emb_init_scale: 0.02
     # Maximum sequence length, useful for the LEARNED positional encodings.
-    max_sequence_length: 78
+    max_sequence_length: 64
     # How much larger the hidden layer of the feedforward network should be
     # compared to the `embedding_dim`.
     widening_factor: 4
