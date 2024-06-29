@@ -77,7 +77,7 @@ class Agent:
 
             # Split the options into individual boards for scoring.
             individual_boards = [torch.tensor(board) for board in options]
-            scores = [self.model(board) for board in individual_boards]
+            scores = [self.model(board).squeeze().item() for board in individual_boards]
             
         # Select end token
         selection = selector(scores, self.p, self.k)
