@@ -1,0 +1,18 @@
+    seed: 1
+    # The input vocabulary size.
+    vocab_size: 21
+    # The output size (by default equal to the vocabulary size).
+    output_size: 128
+    # The dimension of the first embedding.
+    embedding_dim: 64
+    # The number of multi-head attention layers.
+    num_layers: 4
+    # The number of heads per layer.
+    num_heads: 8
+    # The parameter initialization scale for the embeddings.
+    emb_init_scale: 0.02
+    # Maximum sequence length, useful for the LEARNED positional encodings.
+    max_sequence_length: 78
+    # How much larger the hidden layer of the feedforward network should be
+    # compared to the `embedding_dim`.
+    widening_factor: 4

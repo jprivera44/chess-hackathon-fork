@@ -1,0 +1,26 @@
+
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Main Python: Chess AI Training",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/train.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--save-dir", "${workspaceFolder}/outputs/chess",
+                "--lr", "0.0002",
+                "--model-config", "${workspaceFolder}/models/transformer.yaml"
+            ],
+            "env": {
+                "MASTER_ADDR": "localhost",  // Adjust as necessary
+                "MASTER_PORT": "12345",      // Adjust as necessary
+                "RANK": "0",                 // Adjust as necessary
+                "LOCAL_RANK": "0",           // Adjust as necessary
+                "WORLD_SIZE": "1"           // Adjust as necessary based on nnodes and nproc-per-node
+            }
+        }
+    ]
+}
+
